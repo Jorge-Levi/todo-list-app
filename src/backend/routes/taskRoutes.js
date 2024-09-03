@@ -1,70 +1,36 @@
 const express = require('express');
-const Task = require('../models/Task');
+const { check, validationResult } = require('express-validator');
+const { getTasks, createTask, updateTask, deleteTask, getTaskById } = require('../controllers/taskController');
+
 const router = express.Router();
 
-// GET all tasks
-router.get('/tasks', async (req, res) => {
-  try {
-    const tasks = await Task.find();
-    res.json(tasks);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// Ruta para obtener todas las tareas
+router.get('/', getTasks);
 
-// POST a new task
-router.post('/tasks', async (req, res) => {
-  const task = new Task({
-    title: req.body.title,
-    description: req.body.description,
-    category: req.body.category,
-  });
+// Ruta para obtener una tarea específica
+router.get('/:id', getTaskById);  // Nueva ruta
 
-  try {
-    const newTask = await task.save();
-    res.status(201).json(newTask);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-// GET a specific task
-router.get('/tasks/:id', async (req, res) => {
-  try {
-    const task = await Task.findById(req.params.id);
-    if (task == null) {
-      return res.status(404).json({ message: 'Task not found' });
+// Ruta para crear una nueva tarea con validación
+router.post(
+  '/',
+  [
+    check('title', 'Title is required').not().isEmpty(),
+    check('category', 'Category is required').not().isEmpty(),
+  ],
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
-    res.json(task);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+    next();
+  },
+  createTask
+);
 
-// PUT update a task
-router.put('/tasks/:id', async (req, res) => {
-  try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (task == null) {
-      return res.status(404).json({ message: 'Task not found' });
-    }
-    res.json(task);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+// Ruta para actualizar una tarea
+router.put('/:id', updateTask);
 
-// DELETE a task
-router.delete('/tasks/:id', async (req, res) => {
-  try {
-    const task = await Task.findByIdAndDelete(req.params.id);
-    if (task == null) {
-      return res.status(404).json({ message: 'Task not found' });
-    }
-    res.json({ message: 'Task deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// Ruta para eliminar una tarea
+router.delete('/:id', deleteTask);
 
 module.exports = router;
