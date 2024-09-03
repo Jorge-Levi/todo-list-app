@@ -1,0 +1,179 @@
+/* Fuentes y colores */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F8F9FA;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #343A40;
+  }
+  
+  .container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    max-height: 80vh; /* Limita la altura máxima del contenedor */
+    overflow-y: auto; /* Añade barra de desplazamiento si hay desbordamiento */
+  }
+  
+  header h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #007BFF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  label {
+    font-weight: 500;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #CED4DA;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  button {
+    padding: 10px;
+    background: #28A745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  button:hover {
+    background: #218838;
+  }
+  
+  #tasks-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #tasks-list li {
+    background: #E9ECEF;
+    padding: 15px;
+    border: 1px solid #CED4DA;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s, transform 0.3s;
+    animation: fadeIn 0.5s ease; /* Animación de aparición */
+  }
+  
+  #tasks-list li:hover {
+    background: #DEE2E6;
+    transform: translateY(-3px);
+  }
+  
+  .task-title {
+    font-weight: 500;
+  }
+  
+  .task-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .delete-btn {
+    background: transparent;
+    color: #DC3545; /* Color rojo para el botón de eliminar */
+    border: none;
+    cursor: pointer;
+  }
+  
+  .delete-btn i {
+    font-size: 1.2rem;
+    color: #DC3545; /* Asegura que el icono de la papelera sea rojo */
+  }
+  
+  .delete-btn:hover i {
+    color: #C82333; /* Color rojo más oscuro al hacer hover */
+  }
+  
+  .task-actions button {
+    background: transparent;
+    color: #28A745;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .task-actions button:hover i {
+    color: #218838;
+  }
+  
+  .task-actions i {
+    font-size: 1.2rem;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 15px;
+    }
+  
+    header h1 {
+      font-size: 1.25rem;
+    }
+  
+    button {
+      font-size: 0.875rem;
+    }
+  
+    input[type="text"] {
+      font-size: 0.875rem;
+    }
+  }
+  

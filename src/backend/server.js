@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const taskRoutes = require('./routes/taskRoutes');
 const dotenv = require('dotenv');
+const cors = require('cors'); 
 
 dotenv.config();
 
@@ -12,6 +13,9 @@ connectDB();
 
 // Middleware to parse JSON
 app.use(express.json());
+
+// Middleware para manejar CORS
+app.use(cors());
 
 // Use task routes
 app.use('/api', taskRoutes);
